@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Test::Deep::URI;
 
-# ABSTRACT: 
+# ABSTRACT:
 
 use base qw(Exporter::Tiny);
 our @EXPORT = qw(uri);
@@ -19,74 +19,55 @@ sub uri { __PACKAGE__->new(@_); }
 
 sub init
 {
-    my ($self, $args) = @_;
-
-    my $tests;
-    if (ref $args) {
-        foreach my $key (keys %valid_keys) {
-            next unless exists $args->{$key};
-            $self->{$key} = $args->{$key};
-        }
-
-        foreach my $mode (qw(as_hashref as_hashref_mixed as_hashref_multi)) {
-            if ($args->{$mode})
-            {
-                warn qq(Overwriting "query_form" due to key "$mode")
-                    if exists $self->{qfmode};
-
-                $self->{query_form} = $args->{$mode};
-                $self->{qfmode} = $mode;
-            }
-        }
+    my ($self, $uri) = @_;
+    warn "Missing arguement to uri()!" unless defined $uri;
+    # URI objects act a little weird on URIs like "//host/path".
+    # "/path" can be pulled via path(), but host() dies. Thus I'm
+    # copying the host string if necessary.
+    if (($uri || '') =~ m{//([^/]+)/}) {
+        $self->{host} = $1;
     }
-    else {
-        $self->{uri} = URI->new($args);
-    }
+    $self->{uri} = URI->new($uri);
 }
 
 sub descend
 {
     my ($self, $got) = @_;
 
-    my $tests;
+    my $uri = $self->{uri};
+    $got = URI->new($got);
 
-    if ($self->{uri}) {
-        my $uri = $self->{uri};
-        my @methods;
-        push @methods, scheme => $uri->scheme if $uri->has_recognized_scheme();
-        local $@;
-        eval { push @methods, host => $uri->host }; # Dies on partial URIs
-        push @methods, path => $uri->path;
-        push @methods, fragment => $uri->fragment;
+    my @methods;
+    push @methods, scheme   => $uri->scheme if $uri->scheme();
+    local $@;
+    eval {
+        # Dies on partial URIs
+        push @methods, host => $uri->host;
+        # Don't need kludge
+        delete $self->{host};
+    };
+    push @methods, path     => $uri->path;
+    push @methods, fragment => $uri->fragment;
 
-        $tests = Test::Deep::methods(@methods);
-#        Test::Deep::all(
-#            query_form => Test::Deep::code(sub {
-#                    my $data = shift;
-#                    print "DATA IS " . np($data);
-#
-#                    return 1;
-#                })
-#            );
+    my $received_query_form = Hash::MultiValue->new( $got->query_form )->as_hashref_mixed;
+
+    my @expected = (
+        Hash::MultiValue->new( $uri->query_form )->as_hashref_mixed,
+        Test::Deep::methods(@methods)
+    );
+    my @received = (
+        Hash::MultiValue->new( $got->query_form )->as_hashref_mixed,
+        $got,
+    );
+
+    # Kludge to test host!
+    if ($self->{host}) {
+        push @expected, $self->{host};
+        push @received, $got->host;
     }
 
-    $got = URI->new($got);
     $self->data->{got} = $got;
-    return Test::Deep::wrap($tests)->descend($got);
+    return Test::Deep::wrap(\@expected)->descend(\@received);
 }
-#    my ($path, $args, $name) = @_;
-#    local $Test::Builder::Level = $Test::Builder::Level + 1;
-#    note "URI: $Lib::KM::_test_query";
-#
-#    my $uri = URI->new($Lib::KM::_test_query);
-#    my $found = [ $uri, { $uri->query_form } ];
-#    my $tests = [ methods( path => $path ), $args ];
-#    cmp_deeply($found, $tests, $name);
-#}
 
-sub diagnostics
-{
-    my $self = shift;
-    return "BOOGER";
-}
 1;
