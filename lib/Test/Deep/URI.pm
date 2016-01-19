@@ -14,9 +14,6 @@ use Test::Deep::Cmp; # exports "new", other stuff.
 use URI;
 use Hash::MultiValue;
 use Test::Deep ();
-use Data::Printer return_value => 'dump';
-
-my %valid_keys = map { $_ => 1 } qw(path fragment scheme query_form);
 
 sub uri { __PACKAGE__->new(@_); }
 
