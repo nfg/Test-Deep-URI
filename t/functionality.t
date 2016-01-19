@@ -32,4 +32,13 @@ cmp_deeply(
     'Testing against misordered params',
 );
 
+cmp_deeply(
+    'tel:+1-555-123-1234',
+    all(
+        uri('tel:+1-555-123-1234'),
+        uri('+1-555-123-1234'),
+    ),
+    "Works with random tel URI"
+);
+
 done_testing();
