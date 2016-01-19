@@ -12,7 +12,6 @@ our @EXPORT = qw(uri);
 
 use Test::Deep::Cmp; # exports "new", other stuff.
 use URI;
-use Hash::MultiValue;
 use Test::Deep ();
 
 sub uri { __PACKAGE__->new(@_); }
@@ -49,14 +48,12 @@ sub descend
     push @methods, path     => $uri->path;
     push @methods, fragment => $uri->fragment;
 
-    my $received_query_form = Hash::MultiValue->new( $got->query_form )->as_hashref_mixed;
-
     my @expected = (
-        Hash::MultiValue->new( $uri->query_form )->as_hashref_mixed,
+        _to_hashref([ $uri->query_form ]),
         Test::Deep::methods(@methods)
     );
     my @received = (
-        Hash::MultiValue->new( $got->query_form )->as_hashref_mixed,
+        _to_hashref([ $got->query_form ]),
         $got,
     );
 
@@ -68,6 +65,23 @@ sub descend
 
     $self->data->{got} = $got;
     return Test::Deep::wrap(\@expected)->descend(\@received);
+}
+
+sub _to_hashref
+{
+    my $list = shift;
+    my %hash;
+    while (my ($key, $val) = splice(@$list, 0, 2))
+    {
+        if (exists $hash{$key}) {
+            $hash{$key} = [ $hash{$key} ]
+                unless ref $hash{$key};
+            push @{$hash{$key}}, $val;
+            next;
+        }
+        $hash{$key} = $val;
+    }
+    return \%hash;
 }
 
 1;

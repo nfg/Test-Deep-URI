@@ -2,7 +2,6 @@ requires 'perl', '5.008005';
 requires 'Exporter::Tiny';
 requires 'URI';
 requires 'Test::Deep';
-requires 'Hash::MultiValue';
 
 # requires 'Some::Module', 'VERSION';
 
