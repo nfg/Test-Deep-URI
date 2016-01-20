@@ -58,5 +58,5 @@ it under the same terms as Perl itself.
 
 # SEE ALSO
 
-[Test::Deep](https://metacpan.org/pod/Test::Deep)
-[Test::Deep::JSON](https://metacpan.org/pod/Test::Deep::JSON)
+- [Test::Deep](https://metacpan.org/pod/Test::Deep)
+- [Test::Deep::JSON](https://metacpan.org/pod/Test::Deep::JSON)

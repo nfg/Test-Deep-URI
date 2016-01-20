@@ -153,7 +153,12 @@ it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
-L<Test::Deep>
-L<Test::Deep::JSON>
+=over 4
+
+=item L<Test::Deep>
+
+=item L<Test::Deep::JSON>
+
+=back
 
 =cut
