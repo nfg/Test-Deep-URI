@@ -91,15 +91,52 @@ __END__
 
 =head1 NAME
 
-Test::Deep::URI - Blah blah blah
+Test::Deep::URI - Easier testing of URIs for Test::Deep
 
 =head1 SYNOPSIS
 
+  use Test::Deep;
   use Test::Deep::URI;
+
+  $testing_url = "http://site.com/path?a=1&b=2";
+  cmp_deeply(
+    $testing_url,
+    all(
+      uri("http://site.com/path?a=1&b=2"),
+      # or
+      uri("//site.com/path?a=1&b=2"),
+      # or
+      uri("/path?b=2&a=1"),
+    )
+  );
 
 =head1 DESCRIPTION
 
-Test::Deep::URI is
+Test::Deep::URI provides the function C<uri($expected)> for L<Test::Deep>.
+Use it in combination with C<cmp_deeply> to test against partial URIs.
+
+In particular I wrote this because I was tired of stumbling across unit
+tests that failed because C<http://site.com/?foo=1&bar=2> didn't match
+C<http://site.com/?bar=2&foo=1>. This helper is smart enough to compare
+query_form parameters separately, while still enforcing the order of values
+for duplicate parameters.
+
+=head1 FUNCTIONS
+
+=over 4
+
+=item uri($expected)
+
+Exported by default.
+
+I<$expected> should be a string that can be passed to C<URI->new()>.
+
+=back
+
+=head1 ERRATA
+
+I've mostly been using this with URLs, but it's built around L<URI>
+and should work with all types. Let me know if something doesn't work.
 
 =head1 AUTHOR
 
@@ -107,7 +144,7 @@ Nigel Gregoire E<lt>nigelg@airg.comE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2016- Nigel Gregoire
+Copyright 2016 - Nigel Gregoire
 
 =head1 LICENSE
 
@@ -115,5 +152,8 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =head1 SEE ALSO
+
+L<Test::Deep>
+L<Test::Deep::JSON>
 
 =cut

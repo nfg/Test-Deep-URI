@@ -50,4 +50,13 @@ cmp_deeply(
     "Works with file URIs",
 );
 
+cmp_deeply(
+    'mailto:test@fakesite.com',
+    all(
+        uri('mailto:test@fakesite.com'),
+        uri('test@fakesite.com'),
+    ),
+    "Works with mailto URIs",
+);
+
 done_testing();

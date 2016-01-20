@@ -1,5 +1,5 @@
 {
-   "abstract" : "Blah blah blah",
+   "abstract" : "Easier testing of URIs for Test::Deep",
    "author" : [
       "Nigel Gregoire <nigelg@airg.com>"
    ],
@@ -38,7 +38,6 @@
       "runtime" : {
          "requires" : {
             "Exporter::Tiny" : "0",
-            "Hash::MultiValue" : "0",
             "Test::Deep" : "0",
             "URI" : "0",
             "perl" : "5.008005"
