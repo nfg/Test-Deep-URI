@@ -38,7 +38,16 @@ cmp_deeply(
         uri('tel:+1-555-123-1234'),
         uri('+1-555-123-1234'),
     ),
-    "Works with random tel URI"
+    "Works with tel URIs"
+);
+
+cmp_deeply(
+    'file:///home/user/foo',
+    all(
+        uri('file:///home/user/foo'),
+        uri('/home/user/foo'),
+    ),
+    "Works with file URIs",
 );
 
 done_testing();
