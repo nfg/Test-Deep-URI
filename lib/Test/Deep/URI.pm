@@ -129,7 +129,7 @@ for duplicate parameters.
 
 Exported by default.
 
-I<$expected> should be a string that can be passed to C<URI->new()>.
+I<$expected> should be a string that can be passed to C<URI-&gt;new()>.
 
 =back
 

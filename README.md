@@ -36,7 +36,7 @@ for duplicate parameters.
 
     Exported by default.
 
-    _$expected_ should be a string that can be passed to `URI-`new()>.
+    _$expected_ should be a string that can be passed to `URI-&gt;new()`.
 
 # ERRATA
 
