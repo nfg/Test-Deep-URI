@@ -140,7 +140,7 @@ and should work with all types. Let me know if something doesn't work.
 
 =head1 AUTHOR
 
-Nigel Gregoire E<lt>nigelg@airg.comE<gt>
+Nigel Gregoire E<lt>nigelgregoire@gmail.comE<gt>
 
 =head1 COPYRIGHT
 

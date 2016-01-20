@@ -1,7 +1,7 @@
 {
    "abstract" : "Easier testing of URIs for Test::Deep",
    "author" : [
-      "Nigel Gregoire <nigelg@airg.com>"
+      "Nigel Gregoire <nigelgregoire@gmail.com>"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Dist::Zilla version 5.039, Dist::Milla version v1.0.15, CPAN::Meta::Converter version 2.150005",
@@ -63,6 +63,9 @@
          "web" : "https://github.com/nfg/Test-Deep-URI"
       }
    },
-   "version" : "0.01"
+   "version" : "0.01",
+   "x_contributors" : [
+      "Nigel Gregoire <nigelg@airg.com>"
+   ]
 }
 

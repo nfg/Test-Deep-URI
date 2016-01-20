@@ -45,7 +45,7 @@ and should work with all types. Let me know if something doesn't work.
 
 # AUTHOR
 
-Nigel Gregoire &lt;nigelg@airg.com>
+Nigel Gregoire &lt;nigelgregoire@gmail.com>
 
 # COPYRIGHT
 
