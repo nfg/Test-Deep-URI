@@ -162,6 +162,8 @@ it under the same terms as Perl itself.
 
 =item L<Test::Deep::JSON>
 
+=item L<Test::Deep::Filter>
+
 =back
 
 =cut
