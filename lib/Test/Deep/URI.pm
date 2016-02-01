@@ -60,7 +60,10 @@ sub descend
     # Kludge to test host!
     if ($self->{host}) {
         push @expected, $self->{host};
-        push @received, $got->host;
+        push @received,
+            ($got->can('host'))
+                ? $got->host
+                : $got =~ m{//([^/]+)/};
     }
 
     $self->data->{got} = $got;

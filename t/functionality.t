@@ -33,6 +33,12 @@ cmp_deeply(
 );
 
 cmp_deeply(
+    "//partialuri/meh",
+    uri("//partialuri/meh"),
+    'Can match partial URIs against each other',
+);
+
+cmp_deeply(
     'tel:+1-555-123-1234',
     all(
         uri('tel:+1-555-123-1234'),
