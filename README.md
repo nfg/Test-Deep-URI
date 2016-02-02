@@ -60,3 +60,4 @@ it under the same terms as Perl itself.
 
 - [Test::Deep](https://metacpan.org/pod/Test::Deep)
 - [Test::Deep::JSON](https://metacpan.org/pod/Test::Deep::JSON)
+- [Test::Deep::Filter](https://metacpan.org/pod/Test::Deep::Filter)
