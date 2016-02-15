@@ -8,5 +8,5 @@ requires 'Test::Deep';
 on test => sub {
     requires 'Test::More', '0.96';
     requires 'Test::Tester';
-    requires 'Test::Warnings';
+    requires 'Test::Warnings', '0.005';
 };
