@@ -34,7 +34,7 @@ sub init
     my $is_deep_qf = scalar(@_) == 3;
 
     if (! $is_deep_qf && ! defined $expected_uri) {
-        warn "Missing arguement to uri()!";
+        warn "Missing argument to uri()!";
     }
     elsif ($is_deep_qf) {
         warn "Missing uri for uri_qf()!"

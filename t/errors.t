@@ -202,7 +202,7 @@ subtest 'missing arg to uri()' => sub {
         @results = run_tests(sub { cmp_deeply($test_uri, uri()) });
     };
 
-    cmp_deeply(\@warnings, [ re(qr/Missing arguement to uri\(\)/) ], 'Warned about missing argument');
+    cmp_deeply(\@warnings, [ re(qr/Missing argument to uri\(\)/) ], 'Warned about missing argument');
     cmp_deeply(\@results,
         [
             bool(0), # premature = false
