@@ -98,7 +98,7 @@ sub descend
 }
 
 sub _get_expected_qf {
-    my $self = shift;
+    my ($self) = @_;
     return $self->{expected_qf}
         if exists $self->{expected_qf};
     return _to_hashref([ $self->{uri}->query_form ]);
@@ -106,7 +106,7 @@ sub _get_expected_qf {
 
 sub _to_hashref
 {
-    my $list = shift;
+    my ($list) = @_;
     my %hash;
     while (my ($key, $val) = splice(@$list, 0, 2))
     {
