@@ -130,33 +130,29 @@ __END__
 
 Test::Deep::URI - Easier testing of URIs for Test::Deep
 
-=begin HTML
-
-<p><img src="https://api.travis-ci.org/nfg/Test-Deep-URI.svg?branch=master" alt="Build status"></p>
-
-=end HTML
+=for markdown [![Build Status](https://travis-ci.org/nfg/Test-Deep-URI.svg?branch=master)](https://travis-ci.org/nfg/Test-Deep-URI)
 
 =head1 SYNOPSIS
 
-  use Test::Deep;
-  use Test::Deep::URI;
+    use Test::Deep;
+    use Test::Deep::URI;
 
-  $testing_url = "http://site.com/path?a=1&b=2";
-  cmp_deeply(
-    $testing_url,
-    all(
-      uri("http://site.com/path?a=1&b=2"),
-      # or
-      uri("//site.com/path?a=1&b=2"),
-      # or
-      uri("/path?b=2&a=1"),
-    )
-  );
+    $testing_url = "http://site.com/path?a=1&b=2";
+    cmp_deeply(
+        $testing_url,
+        all(
+            uri("http://site.com/path?a=1&b=2"),
+            # or
+            uri("//site.com/path?a=1&b=2"),
+            # or
+            uri("/path?b=2&a=1"),
+        )
+    );
 
-  cmp_deeply(
-    $testing_url,
-    uri_qf("/path", { a => 1, b => ignore() }),
-  );
+    cmp_deeply(
+        $testing_url,
+        uri_qf("/path", { a => 1, b => ignore() }),
+    );
 
 =head1 DESCRIPTION
 
