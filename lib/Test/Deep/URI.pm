@@ -8,25 +8,52 @@ our $VERSION = '0.02';
 # ABSTRACT: Easier testing of URIs for Test::Deep
 
 use base qw(Exporter::Tiny);
-our @EXPORT = qw(uri);
+our @EXPORT = qw(uri uri_qf);
 
-use Test::Deep::Cmp; # exports "new", other stuff.
 use URI;
 use Test::Deep ();
+use Test::Deep::Cmp; # exports "new", other stuff.
 
-sub uri { __PACKAGE__->new(@_); }
+
+################################################################################
+
+sub uri {
+    my ($expected_uri) = @_;
+    return __PACKAGE__->new($expected_uri);
+}
+
+sub uri_qf {
+    my ($expected_uri, $expected_query_form) = @_;
+    my $self = __PACKAGE__->new($expected_uri, $expected_query_form);
+}
 
 sub init
 {
-    my ($self, $uri) = @_;
-    warn "Missing arguement to uri()!" unless defined $uri;
+    my ($self, $expected_uri, $expected_query_form) = @_;
+
+    my $is_deep_qf = scalar(@_) == 3;
+
+    if (! $is_deep_qf && ! defined $expected_uri) {
+        warn "Missing arguement to uri()!";
+    }
+    elsif ($is_deep_qf) {
+        warn "Missing uri for uri_qf()!"
+            unless defined $expected_uri;
+        warn "Missing query form for uri_qf()!"
+            unless defined $expected_query_form;
+    }
+
     # URI objects act a little weird on URIs like "//host/path".
     # "/path" can be pulled via path(), but host() dies. Thus I'm
     # copying the host string if necessary.
-    if (($uri || '') =~ m{//([^/]+)/}) {
+    if (($expected_uri || '') =~ m{//([^/]+)/}) {
         $self->{host} = $1;
     }
-    $self->{uri} = URI->new($uri);
+    $self->{uri} = URI->new($expected_uri);
+    if ($is_deep_qf) {
+        $self->{is_deep_qf} = $is_deep_qf;
+        $self->{expected_qf} = $expected_query_form;
+    }
 }
 
 sub descend
@@ -49,7 +76,7 @@ sub descend
     push @methods, fragment => $uri->fragment;
 
     my @expected = (
-        _to_hashref([ $uri->query_form ]),
+        $self->_get_expected_qf(),
         Test::Deep::methods(@methods)
     );
     my @received = (
@@ -68,6 +95,13 @@ sub descend
 
     $self->data->{got} = $got;
     return Test::Deep::wrap(\@expected)->descend(\@received);
+}
+
+sub _get_expected_qf {
+    my $self = shift;
+    return $self->{expected_qf}
+        if exists $self->{expected_qf};
+    return _to_hashref([ $self->{uri}->query_form ]);
 }
 
 sub _to_hashref
