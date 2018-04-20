@@ -130,6 +130,12 @@ __END__
 
 Test::Deep::URI - Easier testing of URIs for Test::Deep
 
+=begin HTML
+
+<p><img src="https://api.travis-ci.org/nfg/Test-Deep-URI.svg?branch=master" alt="Build status"></p>
+
+=end HTML
+
 =head1 SYNOPSIS
 
   use Test::Deep;
