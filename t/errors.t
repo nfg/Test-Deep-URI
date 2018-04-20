@@ -1,4 +1,5 @@
-# vim: set ft=perl use strict;
+# vim: set ft=perl
+use strict;
 use warnings;
 
 # This test checks various permutations of bad input.
