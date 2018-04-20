@@ -147,9 +147,15 @@ Test::Deep::URI - Easier testing of URIs for Test::Deep
     )
   );
 
+  cmp_deeply(
+    $testing_url,
+    uri_qf("/path", { a => 1, b => ignore() }),
+  );
+
 =head1 DESCRIPTION
 
-Test::Deep::URI provides the function C<uri($expected)> for L<Test::Deep>.
+Test::Deep::URI provides the functions C<uri($expected)> and
+C<uri_qf($expected, $query_form)> for L<Test::Deep>.
 Use it in combination with C<cmp_deeply> to test against partial URIs.
 
 In particular I wrote this because I was tired of stumbling across unit
@@ -167,6 +173,15 @@ for duplicate parameters.
 Exported by default.
 
 I<$expected> should be a string that can be passed to C<URI-E<gt>new()>.
+
+=item uri_qf($expected, $query_form)
+
+Exported by default.
+
+I<$expected> should be a string that can be passed to C<URI-E<gt>new()>.
+
+I<$query_form> should be whatever structure you want to check the query
+form against.
 
 =back
 
