@@ -5,7 +5,7 @@ use warnings;
 use 5.008_005;
 our $VERSION = '0.02';
 
-# ABSTRACT:
+# ABSTRACT: Easier testing of URIs for Test::Deep
 
 use base qw(Exporter::Tiny);
 our @EXPORT = qw(uri);
