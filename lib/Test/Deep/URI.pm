@@ -3,7 +3,7 @@ package Test::Deep::URI;
 use strict;
 use warnings;
 use 5.008_005;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 # ABSTRACT: Easier testing of URIs for Test::Deep
 
