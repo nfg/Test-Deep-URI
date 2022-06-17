@@ -215,6 +215,8 @@ it under the same terms as Perl itself.
 
 =item L<Test::Deep::Filter>
 
+=item L<Test2::Tools::URL>
+
 =back
 
 =cut
